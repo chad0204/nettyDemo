@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
-import java.util.Date;
 
 public class TimeServerHandler implements Runnable {
 
@@ -31,7 +30,7 @@ public class TimeServerHandler implements Runnable {
                 if (body == null) {
                     break;
                 }
-                System.out.println("The time server receiver order:" + body);
+                System.out.println(Thread.currentThread().getName()+"The time server receiver order:" + body);
 //                currentTime = "QUERY TIME ORDER".equalsIgnoreCase(body)?
 //                        new Date(System.currentTimeMillis()).toString():
 //                        "BAD ORDER";

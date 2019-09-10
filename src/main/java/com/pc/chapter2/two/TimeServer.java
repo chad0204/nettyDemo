@@ -6,6 +6,11 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+/**
+ * 使用线程池控制线程数量
+ * 但由于读取操作和写入操作是阻塞的，如果因为网络等原因导致延迟，在没有处理完之前，其他客户端消息只能在队列中排队。最后导致新的客户端
+ * 连接被拒绝，产生大量的连接超时。
+ */
 public class TimeServer {
 
     public static void main(String[] args) throws IOException {
@@ -27,6 +32,7 @@ public class TimeServer {
 
             while (true) {
                 socket = server.accept();
+                //使用线程池控制线程数量
                 executePool.execute(new TimeServerHandler(socket));
             }
 
