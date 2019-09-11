@@ -25,8 +25,11 @@ public class TimeClientHandle implements Runnable {
 
         try {
             selector = Selector.open();
+            //1.打开SocketChannel，绑定客户端本地地址
             socketChannel = SocketChannel.open();
+            //2.设置socketChannel为非阻塞模式
             socketChannel.configureBlocking(false);
+
         } catch (IOException e) {
             e.printStackTrace();
             System.exit(1);
@@ -37,7 +40,8 @@ public class TimeClientHandle implements Runnable {
     @Override
     public void run() {
         try {
-            doConnect();
+            //3.异步连接服务器  4.判断连接是否成功
+            doConnect();//放在循环外是由于连接成功则不需要继续连接
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -52,6 +56,7 @@ public class TimeClientHandle implements Runnable {
                     key = it.next();
                     it.remove();
                     try {
+                        //处理消息
                         handleInput(key);
                     } catch (Exception e) {
                         if (key != null) {
@@ -82,8 +87,8 @@ public class TimeClientHandle implements Runnable {
         if (key.isValid()) {
             //判断是否连接成功
             SocketChannel sc = (SocketChannel) key.channel();
-            if (key.isConnectable()) {
-                if (sc.finishConnect()) {
+            if (key.isConnectable()) {//连接状态，true表示服务端返回ack,false表示还没返回ack
+                if (sc.finishConnect()) {//连接结果，true表示客户端连接成功，false表示连接失败
                     sc.register(selector, SelectionKey.OP_READ);
                     doWrite(sc);
                 }
@@ -112,11 +117,12 @@ public class TimeClientHandle implements Runnable {
     }
 
     private void doConnect() throws IOException {
-        //如果直接连接成功，则注册到多路复用器上，发送请求信息，读应答
         if (socketChannel.connect(new InetSocketAddress(host, port))) {
+            //连接成功，直接注册读状态位到多路复用器中，发送请求信息，读应答
             socketChannel.register(selector, SelectionKey.OP_READ);
             doWrite(socketChannel);
         } else {
+            //当前没有连接成功（不代表连接失败），说明客户端已经发送sync包，服务端没有返回ack包，物理链路还没有建立。
             socketChannel.register(selector, SelectionKey.OP_CONNECT);
         }
     }
