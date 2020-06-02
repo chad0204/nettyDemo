@@ -1,6 +1,6 @@
-package com.pc.netty_anth_guide.chapter2.two;
+package com.pc.netty_anth_guide.chapter2.fakeAio;
 
-import com.pc.netty_anth_guide.chapter2.one.TimeServerHandler;
+import com.pc.netty_anth_guide.chapter2.bio.TimeServerHandler;
 
 import java.io.IOException;
 import java.net.ServerSocket;

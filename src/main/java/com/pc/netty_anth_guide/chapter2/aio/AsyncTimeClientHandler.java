@@ -1,4 +1,4 @@
-package com.pc.netty_anth_guide.chapter2.four;
+package com.pc.netty_anth_guide.chapter2.aio;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;

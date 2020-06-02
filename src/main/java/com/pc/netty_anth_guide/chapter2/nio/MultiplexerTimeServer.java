@@ -1,4 +1,4 @@
-package com.pc.netty_anth_guide.chapter2.three;
+package com.pc.netty_anth_guide.chapter2.nio;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
@@ -20,7 +20,7 @@ public class MultiplexerTimeServer implements Runnable {
 
 
     /**
-     * 初始化多路复用器，绑定监听端口
+     * 构造函数，初始化多路复用器，绑定监听端口
      */
     public MultiplexerTimeServer(int port) {
         try {
@@ -54,14 +54,20 @@ public class MultiplexerTimeServer implements Runnable {
         while (!stop) {
             try {
                 //5.多路复用器在线程run方法的无限循环体内轮询准备就绪的Key
-                selector.select(5000);//休眠时间，无论是否有读写事件发生，selector每隔5s都被唤醒一次
+
+                //休眠时间，无论是否有读写事件发生，selector每隔5s都被唤醒一次。所以这里也是阻塞的
+                selector.select(5000);//这里的时间可以调整，也可以为0，0就是不阻塞
+
                 Set<SelectionKey> selectionKeys = selector.selectedKeys();
+
+
                 Iterator<SelectionKey> it = selectionKeys.iterator();
                 SelectionKey key = null;
                 while (it.hasNext()) {
                     key = it.next();
                     it.remove();
                     try {
+                        //处理SelectionKey
                         handleInput(key);
                     } catch (Exception e) {
                         if (key != null) {
@@ -103,8 +109,10 @@ public class MultiplexerTimeServer implements Runnable {
             if (key.isReadable()) {//OP_READ
                 SocketChannel sc = (SocketChannel) key.channel();
                 //9.异步读取客户端请求消息到缓冲区
-                ByteBuffer readBuffer = ByteBuffer.allocate(1024);//开辟一个1MB的缓冲区
-                int readBytes = sc.read(readBuffer);//在建立连接时已经将channel设置为非阻塞，因此read是非阻塞的
+                //开辟一个1MB的缓冲区
+                ByteBuffer readBuffer = ByteBuffer.allocate(1024);
+                //在建立连接时已经将channel设置为非阻塞，因此read是非阻塞的
+                int readBytes = sc.read(readBuffer);
 
                 /**
                  * >0:读到字节码，进行编解码

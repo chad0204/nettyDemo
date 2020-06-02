@@ -1,4 +1,4 @@
-package com.pc.netty_anth_guide.chapter2.one;
+package com.pc.netty_anth_guide.chapter2.bio;
 
 import java.io.BufferedReader;
 import java.io.IOException;

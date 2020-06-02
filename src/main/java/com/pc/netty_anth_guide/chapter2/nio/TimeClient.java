@@ -1,4 +1,4 @@
-package com.pc.netty_anth_guide.chapter2.three;
+package com.pc.netty_anth_guide.chapter2.nio;
 
 public class TimeClient {
 

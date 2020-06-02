@@ -1,4 +1,4 @@
-package com.pc.netty_anth_guide.chapter2.four;
+package com.pc.netty_anth_guide.chapter2.aio;
 
 import java.nio.ByteBuffer;
 import java.nio.channels.AsynchronousSocketChannel;
@@ -18,7 +18,6 @@ public class AcceptCompletionHandler implements CompletionHandler<java.nio.chann
         attachment.asynchronousServerSocketChannel.accept(attachment,this);
         ByteBuffer buffer = ByteBuffer.allocate(1024);
         result.read(buffer,buffer,new ReadCompletionHandler(result));
-
     }
 
     @Override
