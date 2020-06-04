@@ -54,7 +54,6 @@ public class TimeClientHandle implements Runnable {
                 SelectionKey key = null;
                 while (it.hasNext()) {
                     key = it.next();
-                    it.remove();
                     try {
                         //处理消息
                         handleInput(key);
@@ -66,6 +65,7 @@ public class TimeClientHandle implements Runnable {
                             }
                         }
                     }
+                    it.remove();
                 }
 
             } catch (IOException e) {
@@ -100,7 +100,7 @@ public class TimeClientHandle implements Runnable {
                 ByteBuffer readBuffer = ByteBuffer.allocate(1024);
                 int readBytes = sc.read(readBuffer);
                 if (readBytes > 0) {
-                    readBuffer.flip();
+                    readBuffer.flip();//归位
                     byte[] bytes = new byte[readBuffer.remaining()];
                     readBuffer.get(bytes);
                     String body = new String(bytes, StandardCharsets.UTF_8);

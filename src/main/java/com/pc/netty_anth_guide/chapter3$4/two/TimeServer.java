@@ -17,6 +17,11 @@ import io.netty.handler.codec.string.StringDecoder;
  */
 public class TimeServer {
 
+    public static void main(String[] args) throws Exception {
+        int port = 8080;
+        new TimeServer().bind(port);
+    }
+
     public void bind(int port) throws Exception {
         //配置服务端的NIO线程组，一个用于服务端接收客户端的连接，一个用于进行SocketChannel的读写
         EventLoopGroup bossGroup = new NioEventLoopGroup();//包含一组NIO线程，专门用于处理网络事件，实际上它们就是Reactor线程组
@@ -61,8 +66,5 @@ public class TimeServer {
         }
     }
 
-    public static void main(String[] args) throws Exception {
-        int port = 8080;
-        new TimeServer().bind(port);
-    }
+
 }

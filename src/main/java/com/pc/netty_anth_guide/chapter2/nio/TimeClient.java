@@ -8,7 +8,10 @@ public class TimeClient {
             port = Integer.valueOf(args[0]);
         }
 
-        new Thread(new TimeClientHandle("localhost", port), "TimeClient-001").start();
+//        for(int i=0;i<100;i++) {
+            new Thread(new TimeClientHandle("localhost", port), "TimeClient-001").start();
+//        }
+
 
 
     }

@@ -17,6 +17,13 @@ import io.netty.handler.codec.string.StringDecoder;
  * @since 10:36 2019-09-16
  */
 public class TimeClient {
+
+    public static void main(String[] args) throws Exception {
+        int port = 8080;
+        new TimeClient().connect(port,"127.0.0.1");
+    }
+
+
     public void connect(int port, String host) throws Exception {
         //配置客户端NIO线程
         EventLoopGroup group = new NioEventLoopGroup();
@@ -43,8 +50,5 @@ public class TimeClient {
         }
     }
 
-    public static void main(String[] args) throws Exception {
-        int port = 8080;
-        new TimeClient().connect(port,"127.0.0.1");
-    }
+
 }

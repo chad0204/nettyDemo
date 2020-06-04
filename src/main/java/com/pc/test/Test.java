@@ -27,11 +27,17 @@ public class Test {
 
         ByteBuf buf = Unpooled.copiedBuffer(new StringBuilder("123456789abcdefghigk"), CharsetUtil.UTF_8);
 
-       buf.writeByte(10);
-
+        buf.writeByte(10);
         int newCapacity = 10 / 8 * 8;
 
         System.out.println(newCapacity);
+
+
+
+        ByteBufAllocator ALLOC = UnpooledByteBufAllocator.DEFAULT;
+        ByteBuf dst = ALLOC.buffer(10);
+        ByteBuf directBuffer = ALLOC.directBuffer();
+        ByteBuf heapBuffer = ALLOC.heapBuffer();
 
 
 

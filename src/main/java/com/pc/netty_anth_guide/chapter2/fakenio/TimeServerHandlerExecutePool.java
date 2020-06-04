@@ -1,4 +1,4 @@
-package com.pc.netty_anth_guide.chapter2.fakeAio;
+package com.pc.netty_anth_guide.chapter2.fakenio;
 
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.ExecutorService;

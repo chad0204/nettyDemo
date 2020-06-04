@@ -23,6 +23,11 @@ import io.netty.handler.logging.LoggingHandler;
  */
 public class SubReqServer {
 
+    public static void main(String[] args) throws InterruptedException {
+        int port = 8080;
+        new SubReqServer().bind(port);
+    }
+
     public void bind(int port) throws InterruptedException {
         EventLoopGroup bossGroup = new NioEventLoopGroup();
         EventLoopGroup workerGroup = new NioEventLoopGroup();
@@ -55,8 +60,4 @@ public class SubReqServer {
         }
     }
 
-    public static void main(String[] args) throws InterruptedException {
-        int port = 8080;
-        new SubReqServer().bind(port);
-    }
 }

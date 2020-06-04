@@ -10,6 +10,7 @@ import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
+import io.netty.handler.codec.DelimiterBasedFrameDecoder;
 import io.netty.handler.codec.FixedLengthFrameDecoder;
 import io.netty.handler.codec.string.StringDecoder;
 import io.netty.handler.logging.LogLevel;
@@ -39,7 +40,7 @@ public class EchoServer {
                             ByteBuf delimiter = Unpooled.copiedBuffer("$_".getBytes());
                             //单条消息最大长度，超过该长度还没有读到分隔符，就抛出异常，防止内存溢出
                             //第一个解码后就是完整的消息包，这里解码后会过滤分隔符
-//                            socketChannel.pipeline().addLast(new DelimiterBasedFrameDecoder(1024,delimiter));
+                            socketChannel.pipeline().addLast(new DelimiterBasedFrameDecoder(1024,delimiter));
 
                             //使用FixedLengthFrameDecoder定长解码器替换上面的分隔符解码器
                             socketChannel.pipeline().addLast(new FixedLengthFrameDecoder(20));

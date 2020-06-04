@@ -26,7 +26,7 @@ public class TimeServerHandler implements Runnable {
             String body = null;
 
             while (true) {
-                body = in.readLine();
+                body = in.readLine();//也会阻塞
                 if (body == null) {
                     break;
                 }

@@ -22,7 +22,7 @@ public class TimeClient {
             out = new PrintWriter(socket.getOutputStream(), true);
             out.println("QUERY TIME ORDER");//发送
             System.out.println("Send order 2 server succeed.");
-            String resp = in.readLine();
+            String resp = in.readLine();//阻塞
             System.out.println("Now is :" + resp);
         } catch (IOException e) {
             e.printStackTrace();

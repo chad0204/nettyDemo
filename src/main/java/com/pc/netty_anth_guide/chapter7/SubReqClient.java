@@ -19,6 +19,12 @@ import io.netty.handler.codec.serialization.ObjectEncoder;
  */
 public class SubReqClient {
 
+
+    public static void main(String[] args) throws InterruptedException {
+        int port = 8080;
+        new SubReqClient().connect(port,"127.0.0.1");
+    }
+
     public void connect(int port, String host) throws InterruptedException {
         //配置客户端NIO线程组
         EventLoopGroup group = new NioEventLoopGroup();
@@ -49,8 +55,4 @@ public class SubReqClient {
         }
     }
 
-    public static void main(String[] args) throws InterruptedException {
-        int port = 8080;
-        new SubReqClient().connect(port,"127.0.0.1");
-    }
 }

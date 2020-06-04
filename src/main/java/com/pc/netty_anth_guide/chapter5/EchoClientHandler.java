@@ -18,15 +18,10 @@ public class EchoClientHandler extends ChannelHandlerAdapter {
     public EchoClientHandler() {
     }
 
-    @Override
-    public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
-        cause.printStackTrace();
-        ctx.close();
-    }
 
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
-        for(int i = 0; i < 100; i++) {
+        for(int i = 0; i < 10; i++) {
             ctx.writeAndFlush(Unpooled.copiedBuffer(ECHO_REQ.getBytes()));
         }
     }
@@ -39,5 +34,11 @@ public class EchoClientHandler extends ChannelHandlerAdapter {
     @Override
     public void channelReadComplete(ChannelHandlerContext ctx) throws Exception {
         ctx.flush();
+    }
+
+    @Override
+    public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
+        cause.printStackTrace();
+        ctx.close();
     }
 }

@@ -1,4 +1,4 @@
-package com.pc.netty_anth_guide.chapter2.fakeAio;
+package com.pc.netty_anth_guide.chapter2.fakenio;
 
 import com.pc.netty_anth_guide.chapter2.bio.TimeServerHandler;
 

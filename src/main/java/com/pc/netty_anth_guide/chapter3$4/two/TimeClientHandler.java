@@ -4,6 +4,7 @@ import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandlerAdapter;
 import io.netty.channel.ChannelHandlerContext;
+import io.netty.channel.ChannelPromise;
 import java.util.logging.Logger;
 
 /**
@@ -22,9 +23,16 @@ public class TimeClientHandler extends ChannelHandlerAdapter {
 
 
     public TimeClientHandler() {
+
         req = ("QUERY TIME ORDER"+System.getProperty("line.separator")).getBytes();
+
     }
 
+    /**
+     * 向服务端发消息
+     * @param ctx
+     * @throws Exception
+     */
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
         ByteBuf message = null;
@@ -57,6 +65,7 @@ public class TimeClientHandler extends ChannelHandlerAdapter {
         String body = (String) msg;
        System.out.println("Now is:" +body+" ; the counter is :" + ++counter);
     }
+
 }
 
 
